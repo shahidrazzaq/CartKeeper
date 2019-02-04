@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ModalController } from 'ionic-angular';
 import {AddCategoryPage} from "../add-category/add-category";
-import {MyAccountPage} from "../account/my-account/my-account";
 
 /**
  * Generated class for the StoreOwnerPage page.

@@ -1,14 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
-import {HomePage} from "../../home/home";
-
+import {Component} from '@angular/core';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { AuthServiceProvider } from '../../../providers/auth-service/auth-service';
 /**
  * Generated class for the RegisterPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
 
 @IonicPage()
 @Component({
@@ -17,56 +16,50 @@ import {HomePage} from "../../home/home";
 })
 export class RegisterPage {
 
-  @ViewChild('email')email;
-  @ViewChild('password')password;
+  createSuccess = false;
+  registerCredentials = { name: '', email: '', password: '', confirmation_password: '' };
 
-  constructor(private fire: AngularFireAuth , private alertCtrl: AlertController ,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private nav: NavController,
+    private auth: AuthServiceProvider,
+    private alertCtrl: AlertController
+  ) {}
+
+  public register() {
+    if (this.registerCredentials.password != this.registerCredentials.confirmation_password) {
+      this.showPopup("Error", 'The password confirmation does not match.');
+    } else {
+      this.auth.register(this.registerCredentials).subscribe(success => {
+          if (success) {
+            this.createSuccess = true;
+            this.showPopup("Success", "Account created.");
+          } else {
+            this.showPopup("Error", "Problem creating account.");
+          }
+        },
+        error => {
+          this.showPopup("Error", error);
+        });
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
-  }
-
-  /*
-  This function is used to create a new User in Angular Firebase
-   */
-  registerUser(){
-    this.fire.auth.createUserAndRetrieveDataWithEmailAndPassword(this.email.value,this.password.value)
-      .then( data =>{
-        console.log("Registered!" , this.fire.auth.currentUser);
-        this.alert("Registered!" );
-      })
-      .catch(error =>{
-        console.log("Error found while registering user " , error);
-        this.alert(error.message);
-      })
-  }
-
-  /*
-   This function is used to Sign in User in Angular Firebase
-   */
-  signIn(){
-    this.fire.auth.signInWithEmailAndPassword(this.email.value,this.password.value)
-      .then(data=>{
-        console.log("Logged in successfully" , this.fire.auth.currentUser);
-        this.alert("Successfully Logged In" );
-        this.navCtrl.setRoot(HomePage);
-      })
-      .catch(error =>{
-        console.log("Error found while login user " , error);
-        this.alert(error.message);
-      })
-  }
-
-  /*
-   Custom Alert Message
-   */
-  alert(message : string){
-    this.alertCtrl.create({
-      title: 'Info !',
-      subTitle: message,
-      buttons: ['OK']
-    }).present();
+  showPopup(title, text) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: text,
+      buttons: [
+        {
+          text: 'OK',
+          handler: data => {
+            if (this.createSuccess) {
+              this.nav.popToRoot();
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
+

@@ -3,7 +3,6 @@ import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angula
 import {MyInfoPage} from "../my-info/my-info";
 import {StoreInfoPage} from "../store-info/store-info";
 
-
 /**
  * Generated class for the MyAccountPage page.
  *

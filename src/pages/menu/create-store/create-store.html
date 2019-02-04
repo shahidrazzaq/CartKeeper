@@ -15,7 +15,6 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
   <h3>Store Info</h3>
@@ -24,41 +23,41 @@
 
     <ion-item>
       <ion-label floating>Store Type</ion-label>
-      <ion-input type="text" name="storeType" [(ngModel)]="store.type" #storeType ></ion-input>
+      <ion-input type="text" name="storeType" [(ngModel)]="store.storeType" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Store Name</ion-label>
-      <ion-input type="text" name="storeName" [(ngModel)]="store.name" #storeName></ion-input>
+      <ion-input type="text" name="storeName" [(ngModel)]="store.storeName" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Phone #</ion-label>
-      <ion-input type="text" name="phone" [(ngModel)]="store.phone" #phoneNumber></ion-input>
+      <ion-input type="number" name="phone" [(ngModel)]="store.phone" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Address</ion-label>
-      <ion-input type="text" name="address" [(ngModel)]="store.address" #address></ion-input>
+      <ion-input type="text" name="address" [(ngModel)]="store.address" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Country</ion-label>
-      <ion-input type="text" name="country" [(ngModel)]="store.country" #country></ion-input>
+      <ion-input type="text" name="country" [(ngModel)]="store.country" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>State</ion-label>
-      <ion-input type="text" name="state" [(ngModel)]="store.state" #state></ion-input>
+      <ion-input type="text" name="state" [(ngModel)]="store.state" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>City</ion-label>
-      <ion-input type="text" name="city" [(ngModel)]="store.city" #phoneNumber></ion-input>
+      <ion-input type="text" name="city" [(ngModel)]="store.city"></ion-input>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button full onclick="createStore()">Save</button>
+  <button ion-button full (click)="createStore()">Save</button>
 
 </ion-content>
