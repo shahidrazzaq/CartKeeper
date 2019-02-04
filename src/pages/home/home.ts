@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -10,5 +10,5 @@ export class HomePage {
   constructor(public navCtrl: NavController) {
 
   }
-
+  slideData = [{ image: "../../assets/slider/slide-1.jpg" },{ image: "../../assets/slider/slide-2.jpg" }]
 }
